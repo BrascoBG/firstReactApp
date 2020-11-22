@@ -23,9 +23,16 @@ function Counter(props) {
       </span>
       <button
         onClick={() => props.onIncrement(props.counter)}
-        className="btn btn-secondary btn-sm"
+        className="btn btn-secondary btn-sm m-2"
       >
         Increment
+      </button>
+      <button
+        disabled={formatCount() === "Zero"}
+        onClick={() => props.onDecrement(props.counter)}
+        className="btn btn-secondary btn-sm m-2"
+      >
+        Decrement
       </button>
       <button
         onClick={() => props.onDelete(props.counter.id)}

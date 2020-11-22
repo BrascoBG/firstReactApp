@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CounterContext } from "../CounterContext";
 
-function NavBar(props) {
+function NavBar() {
+  const [counters] = useContext(CounterContext);
   return (
     <nav className="navbar navbar-light bg-light">
       <p className="navbar-brand" href="#">
         Navbar{" "}
         <span className="badge badge-pill badge-secondary">
-          {props.totalCounters}
+          {counters.filter((c) => c.value > 0).length}
         </span>
       </p>
     </nav>

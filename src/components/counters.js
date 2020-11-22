@@ -1,18 +1,55 @@
-import React from "react";
-import Counter from "./counter";
+import React, { useContext } from "react";
+import Counter from "./Counter";
+import { CounterContext } from "../CounterContext";
 
-function Counters(props) {
+function Counters() {
+  const [counters, setCounters] = useContext(CounterContext);
+
+  const handleIncrement = (counter) => {
+    const updatedCounters = [...counters];
+    for (const count of updatedCounters) {
+      if (count.id === counter.id) {
+        count.value++;
+      }
+    }
+    setCounters(updatedCounters);
+  };
+
+  const handleDecrement = (counter) => {
+    const updatedCounters = [...counters];
+    for (const count of updatedCounters) {
+      if (count.id === counter.id) {
+        count.value--;
+      }
+    }
+    setCounters(updatedCounters);
+  };
+
+  const handleReset = () => {
+    const updatedCounters = [...counters];
+    for (const count of updatedCounters) {
+      count.value = 0;
+    }
+    setCounters(updatedCounters);
+  };
+
+  const handleDelete = (counterId) => {
+    const updatedCounters = counters.filter((count) => count.id !== counterId);
+    setCounters(updatedCounters);
+  };
+
   return (
     <div>
-      <button onClick={props.onReset} className="btn btn-primary btn-sm m-2">
+      <button onClick={handleReset} className="btn btn-primary btn-sm m-2">
         Reset
       </button>
-      {props.counters.map((counter) => (
+      {counters.map((counter) => (
         <Counter
           key={counter.id}
-          onDelete={props.onDelete}
+          onDelete={handleDelete}
           counter={counter}
-          onIncrement={props.onIncrement}
+          onIncrement={handleIncrement}
+          onDecrement={handleDecrement}
         />
       ))}
     </div>
